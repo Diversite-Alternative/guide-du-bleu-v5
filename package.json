@@ -1,7 +1,25 @@
 {
-  "name": "vite_react_shadcn_ts",
+  "name": "guide-du-bleu",
+  "version": "1.0.0",
+  "description": "Guide complet pour les étudiants internationaux en France",
+  "author": "Diversité Alternative <contact@diversitealternative.org>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diversite-Alternative/guide-du-bleu-v5.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Diversite-Alternative/guide-du-bleu-v5/issues"
+  },
+  "homepage": "https://guidedubleu.fr",
+  "keywords": [
+    "étudiant-international",
+    "france",
+    "guide",
+    "éducation",
+    "primo-arrivant"
+  ],
   "private": true,
-  "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -77,7 +95,6 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^15.15.0",
-    "lovable-tagger": "^1.1.13",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.8.3",

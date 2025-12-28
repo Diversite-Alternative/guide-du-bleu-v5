@@ -1,68 +1,116 @@
-# Welcome to your Lovable project
+# Guide du Bleu 🇫🇷
 
-## Project info
+> Votre guide complet pour réussir vos études en France
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Built with React](https://img.shields.io/badge/Built%20with-React-61DAFB.svg)](https://reactjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-blue.svg)](https://www.typescriptlang.org/)
 
-## How can I edit this code?
+## 📖 À propos
 
-There are several ways of editing your application.
+**Guide du Bleu** est une plateforme dédiée aux étudiants internationaux arrivant en France. Nous proposons des guides détaillés, une barre de recherche intelligente et un assistant IA pour vous accompagner dans toutes vos démarches administratives.
 
-**Use Lovable**
+**Créé par** [Diversité Alternative](https://diversitealternative.org/)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## ✨ Fonctionnalités
 
-Changes made via Lovable will be committed automatically to this repo.
+- 🔍 **Recherche intelligente** - Recherche instantanée avec Fuse.js (⌘K)
+- 📚 **Guides détaillés** - Titre de séjour, sécurité sociale, logement, etc.
+- 🤖 **Assistant IA** - Chatbot disponible 24/7
+- 📱 **Responsive** - Optimisé mobile et desktop
+- 🌐 **Multilingue** - Interface en français
+- ♿ **Accessible** - Navigation au clavier, contraste élevé
 
-**Use your preferred IDE**
+## 🚀 Installation
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Prérequis
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+- Node.js 18+ et npm
+- Git
 
-Follow these steps:
+### Étapes
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+# 1. Cloner le repository
+git clone git@github.com:Diversite-Alternative/guide-du-bleu-v5.git
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# 2. Naviguer dans le dossier
+cd guide-du-bleu-v5
 
-# Step 3: Install the necessary dependencies.
-npm i
+# 3. Installer les dépendances
+npm install
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# 4. Lancer le serveur de développement
 npm run dev
 ```
 
+Le site sera accessible sur `http://localhost:8080`
+
 **Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
 
-**Use GitHub Codespaces**
+## 🛠️ Technologies
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+- **Framework**: React 18 + TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS + shadcn/ui
+- **Routing**: React Router
+- **Search**: Fuse.js
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
 
-## What technologies are used for this project?
+## 📁 Structure du projet
 
-This project is built with:
+```
+src/
+├── components/          # Composants réutilisables
+│   ├── guide/          # Composants des pages guides
+│   ├── layout/         # Header, Footer, Layout
+│   ├── search/         # Barre de recherche
+│   └── ui/             # Composants shadcn/ui
+├── data/               # Configuration des guides
+├── lib/                # Utilitaires et index de recherche
+└── pages/              # Pages de l'application
+    └── guides/         # Pages des guides détaillés
+```
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## 🚢 Déploiement
 
-## How can I deploy this project?
+### Netlify / Vercel
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+```sh
+# Build de production
+npm run build
+
+# Le dossier dist/ contient les fichiers statiques
+```
+
+Configuration recommandée:
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Node version: 18+
+
+## 🤝 Contribution
+
+Les contributions sont les bienvenues ! N'hésitez pas à :
+
+1. Fork le projet
+2. Créer une branche (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📝 License
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 👥 Équipe
+
+Créé avec ❤️ par [Diversité Alternative](https://diversitealternative.org/)
+
+---
+
+**Guide du Bleu** - Votre guide pour réussir vos études en France 🇫🇷
 
 ## Can I connect a custom domain to my Lovable project?
 
