@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SearchBar } from "@/components/search/SearchBar";
+import { SearchDialog } from "@/components/search/SearchDialog";
 
 const navItems = [
   { label: "Accueil", href: "/" },
@@ -67,8 +69,11 @@ export const Header = () => {
           ))}
         </nav>
 
-        {/* CTA Button */}
+        {/* Search & CTA */}
         <div className="hidden lg:flex items-center gap-3">
+          <div className="w-64">
+            <SearchBar />
+          </div>
           <Button variant="hero" size="default" asChild>
             <a href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu" target="_blank" rel="noopener noreferrer">
               Discuter avec GDB
@@ -76,14 +81,17 @@ export const Header = () => {
           </Button>
         </div>
 
-        {/* Mobile Menu Button */}
-        <button
-          className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label="Menu"
-        >
-          {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
+        {/* Mobile Actions */}
+        <div className="lg:hidden flex items-center gap-2">
+          <SearchDialog />
+          <button
+            className="p-2 rounded-lg hover:bg-muted transition-colors"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Menu"
+          >
+            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Navigation */}

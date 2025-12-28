@@ -11,6 +11,9 @@ import FAQ from "./pages/FAQ";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
 import { ChatWidget } from "./components/chat/ChatWidget";
+import TitreSejourGuide from "./pages/guides/TitreSejourGuide";
+import SecuriteSocialeGuide from "./pages/guides/SecuriteSocialeGuide";
+import LogementGuide from "./pages/guides/LogementGuide";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +26,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/guides" element={<Guides />} />
+          <Route path="/guides/titre-sejour" element={<TitreSejourGuide />} />
+          <Route path="/guides/securite-sociale" element={<SecuriteSocialeGuide />} />
+          <Route path="/guides/logement" element={<LogementGuide />} />
           <Route path="/services" element={<Services />} />
           <Route path="/a-propos" element={<About />} />
           <Route path="/faq" element={<FAQ />} />
