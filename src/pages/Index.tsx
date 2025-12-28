@@ -21,7 +21,7 @@ import { FeatureCard } from "@/components/ui/feature-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TestimonialCard } from "@/components/ui/testimonial-card";
 import { StatCard } from "@/components/ui/stat-card";
-import heroImage from "@/assets/hero-student-france.jpg";
+import heroImage from "@/assets/gdb-illustration.png";
 
 const features = [
   {
@@ -120,7 +120,7 @@ const Home = () => {
             >
               <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 text-secondary font-medium text-sm mb-6">
                 <Sparkles className="w-4 h-4" />
-                Le guide de référence pour les étudiants étrangers
+                Le guide des étudiants primo-arrivants
               </span>
               
               <h1 className="text-display-md md:text-display-lg lg:text-display-xl font-bold mb-6">
@@ -164,7 +164,7 @@ const Home = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle className="w-5 h-5 text-success" />
-                  <span>Par des étudiants, pour des étudiants</span>
+                  <span>Accompagnés par Diversité Alternative</span>
                 </div>
               </div>
             </motion.div>
