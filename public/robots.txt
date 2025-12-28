@@ -1,3 +1,11 @@
+# Guide du Bleu - Robots.txt
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://guidedubleu.fr/sitemap.xml
+
+# Bots spécifiques
 User-agent: Googlebot
 Allow: /
 
@@ -10,5 +18,8 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
-User-agent: *
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: WhatsApp
 Allow: /
