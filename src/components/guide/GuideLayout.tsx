@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ArrowLeft, Clock, Calendar, Share2, Bookmark, ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Layout } from '@/components/layout/Layout';
+import { GoogleBleuSearch } from '@/components/search/GoogleBleuSearch';
 import type { GuideContent } from '@/data/guides';
 import { allGuides } from '@/data/guides';
 
@@ -69,29 +71,67 @@ export const GuideLayout = ({ guide, children }: GuideLayoutProps) => {
 
     return (
         <Layout>
-            {/* Hero compact */}
-            <section className="pt-32 pb-8 md:pt-40 md:pb-12 bg-gradient-to-b from-primary/5 to-background">
-                <div className="container">
-                    <Link to="/guides" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
-                        <ArrowLeft className="w-4 h-4" />
-                        Retour aux guides
-                    </Link>
+            {/* Hero avec recherche intégrée */}
+            <section className="relative pt-32 pb-8 md:pt-40 md:pb-12 overflow-hidden">
+                {/* Background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
 
-                    <div className="flex items-start gap-6">
-                        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0">
-                            <Icon className="w-8 h-8 text-primary" />
-                        </div>
-                        <div className="flex-1">
-                            <span className="inline-block px-3 py-1 rounded-full bg-accent text-accent-foreground text-xs font-medium mb-3">
-                                {guide.category}
-                            </span>
-                            <h1 className="text-display-sm md:text-display-md font-bold mb-4">
-                                {guide.title}
-                            </h1>
-                            <p className="text-lg text-muted-foreground mb-6 max-w-3xl">
-                                {guide.description}
-                            </p>
-                            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+                <div className="container relative z-10">
+                    <div className="max-w-4xl mx-auto">
+                        {/* Lien retour */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5 }}
+                            className="mb-6"
+                        >
+                            <Link to="/guides" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                                <ArrowLeft className="w-4 h-4" />
+                                Retour aux guides
+                            </Link>
+                        </motion.div>
+
+                        {/* Badge avec icône et catégorie */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                            className="text-center mb-6"
+                        >
+                            <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-primary/10 text-primary">
+                                <div className="w-6 h-6 rounded-lg bg-primary/20 flex items-center justify-center">
+                                    <Icon className="w-4 h-4" />
+                                </div>
+                                <span className="text-sm font-medium">{guide.category} - {guide.title}</span>
+                            </div>
+                        </motion.div>
+
+                        {/* Composant de recherche Google Bleu */}
+                        <GoogleBleuSearch
+                            showLogo={false}
+                            showDescription={false}
+                            showPopularSearches={true}
+                            popularSearches={[
+                                { label: "Titre de séjour", query: "titre de séjour" },
+                                { label: "Logement CROUS", query: "logement crous" },
+                                { label: "Sécurité sociale", query: "sécurité sociale" },
+                                { label: "Compte bancaire", query: "ouvrir compte bancaire" },
+                                { label: "CAF", query: "caf apl aides" },
+                                { label: "Inscription université", query: "inscription université" },
+                            ]}
+                            placeholder={`Rechercher un guide : logement, titre de séjour, CAF...`}
+                            maxResults={8}
+                            align="center"
+                        />
+
+                        {/* Métadonnées */}
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.5, delay: 0.3 }}
+                            className="text-center mt-6"
+                        >
+                            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
                                 <div className="flex items-center gap-2">
                                     <Clock className="w-4 h-4" />
                                     <span>{guide.readTime} de lecture</span>
@@ -101,13 +141,13 @@ export const GuideLayout = ({ guide, children }: GuideLayoutProps) => {
                                     <span>Mis à jour le {new Date(guide.lastUpdated).toLocaleDateString('fr-FR')}</span>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </section>
 
             {/* Contenu avec sidebar */}
-            <section className="py-12 md:py-16">
+            <section className="py-4 md:py-6">
                 <div className="container">
                     <div className="grid lg:grid-cols-12 gap-8 lg:gap-12">
                         {/* Sidebar */}

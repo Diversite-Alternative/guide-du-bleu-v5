@@ -1,11 +1,11 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import {
-  BookOpen,
-  Home,
-  FileText,
-  CreditCard,
-  Shield,
+import { 
+  BookOpen, 
+  Home, 
+  FileText, 
+  CreditCard, 
+  Shield, 
   Users,
   Briefcase,
   Train,
@@ -104,11 +104,11 @@ const GuidesPage = () => {
   return (
     <Layout>
       {/* Hero avec recherche intégrée */}
-      <section className="relative pt-32 pb-8 md:pt-40 md:pb-12 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-
-        <div className="container relative z-10">
+        
+        <div className="container relative z-10 py-20">
           <div className="max-w-4xl mx-auto">
             {/* Badge */}
             <motion.div
@@ -145,20 +145,20 @@ const GuidesPage = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-center mt-4"
+              className="text-center mt-8"
             >
-              {/* <p className="text-lg text-muted-foreground font-body max-w-2xl mx-auto">
+              <p className="text-lg text-muted-foreground font-body max-w-2xl mx-auto">
                 Des guides complets, étape par étape, rédigés par des étudiants qui sont passés par là. 
                 <br className="hidden md:block" />
                 Tout ce que vous devez savoir pour réussir votre arrivée et votre vie en France.
-              </p> */}
+              </p>
             </motion.div>
           </div>
         </div>
       </section>
 
       {/* Guides Grid */}
-      <section className="py-4 md:py-6">
+      <section className="py-16 md:py-24">
         <div className="container">
           <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {guides.map((guide, index) => {
@@ -227,9 +227,9 @@ const GuidesPage = () => {
               Notre assistant IA peut répondre à toutes vos questions sur la vie étudiante en France.
             </p>
             <Button variant="hero" size="lg" asChild>
-              <a
-                href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu"
-                target="_blank"
+              <a 
+                href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu" 
+                target="_blank" 
                 rel="noopener noreferrer"
               >
                 Discuter avec l'assistant

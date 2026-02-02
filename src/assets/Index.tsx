@@ -1,28 +1,26 @@
-import { useState, useEffect, useRef, useCallback } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
-import {
+import { 
   Search,
-  BookOpen,
-  Home as HomeIcon,
-  FileText,
-  CreditCard,
-  Shield,
-  Users,
+  BookOpen, 
+  Home as HomeIcon, 
+  FileText, 
+  CreditCard, 
+  Shield, 
+  Users, 
   ArrowRight,
   CheckCircle,
   MessageCircle,
+  Sparkles,
   GraduationCap,
-  X,
 } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { FeatureCard } from "@/components/ui/feature-card";
 import { SectionHeader } from "@/components/ui/section-header";
 import { TestimonialCard } from "@/components/ui/testimonial-card";
 import { StatCard } from "@/components/ui/stat-card";
-import { searchIndex, type SearchResult } from "@/lib/searchIndex";
 import logoDA from "@/assets/logo-diversite-alternative.png";
 import heroIllustration from "@/assets/gdb-illustration.png";
 
@@ -98,80 +96,7 @@ const testimonials = [
 
 const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [results, setResults] = useState<SearchResult[]>([]);
-  const [isOpen, setIsOpen] = useState(false);
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const searchRef = useRef<HTMLDivElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-
-  const handleSelectResult = useCallback((item: SearchResult['item']) => {
-    navigate(item.url);
-    setIsOpen(false);
-    setSearchQuery('');
-    setResults([]);
-  }, [navigate]);
-
-  const getIcon = (type: string) => {
-    switch (type) {
-      case 'guide':
-        return FileText;
-      case 'faq':
-        return MessageCircle;
-      default:
-        return BookOpen;
-    }
-  };
-
-  // Recherche avec Fuse.js
-  useEffect(() => {
-    if (searchQuery.length < 2) {
-      setResults([]);
-      setIsOpen(false);
-      return;
-    }
-
-    const searchResults = searchIndex.search(searchQuery);
-    setResults(searchResults.slice(0, 6)); // Limite à 6 résultats pour l'accueil
-    setSelectedIndex(0);
-    setIsOpen(true);
-  }, [searchQuery]);
-
-  // Fermer en cliquant à l'extérieur
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (searchRef.current && !searchRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
-
-  // Navigation au clavier
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (!isOpen || results.length === 0) return;
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        setSelectedIndex((prev) => (prev + 1) % results.length);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        setSelectedIndex((prev) => (prev - 1 + results.length) % results.length);
-      } else if (e.key === 'Enter' && results[selectedIndex]) {
-        e.preventDefault();
-        handleSelectResult(results[selectedIndex].item);
-      } else if (e.key === 'Escape') {
-        setIsOpen(false);
-        inputRef.current?.blur();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [isOpen, results, selectedIndex, handleSelectResult]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -190,7 +115,7 @@ const Home = () => {
       <section className="relative min-h-[85vh] flex items-center overflow-hidden">
         {/* Background gradient */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-background to-secondary/5" />
-
+        
         <div className="container relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Search Content */}
@@ -225,119 +150,26 @@ const Home = () => {
                 onSubmit={handleSearch}
                 className="relative mb-6"
               >
-                <div ref={searchRef} className="relative group">
+                <div className="relative group">
                   <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-secondary/20 rounded-full blur-xl opacity-0 group-focus-within:opacity-100 transition-opacity duration-300" />
                   <div className="relative flex items-center bg-card border-2 border-border hover:border-primary/50 focus-within:border-primary focus-within:shadow-glow rounded-full transition-all duration-300">
                     <Search className="w-5 h-5 ml-5 text-muted-foreground" />
                     <input
-                      ref={inputRef}
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      onFocus={() => searchQuery.length >= 2 && setIsOpen(true)}
                       placeholder="Logement, titre de séjour, CAF..."
                       className="flex-1 px-4 py-4 bg-transparent text-base md:text-lg placeholder:text-muted-foreground/70 focus:outline-none"
                     />
-                    {searchQuery && (
-                      <Button
-                        type="button"
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => {
-                          setSearchQuery('');
-                          setResults([]);
-                          setIsOpen(false);
-                        }}
-                        className="mr-2 h-8 w-8 p-0 rounded-full"
-                      >
-                        <X className="w-4 h-4" />
-                      </Button>
-                    )}
-                    <Button
-                      type="submit"
-                      variant="default"
+                    <Button 
+                      type="submit" 
+                      variant="default" 
                       size="lg"
                       className="mr-2 rounded-full px-5"
                     >
                       Rechercher
                     </Button>
                   </div>
-
-                  {/* Résultats de recherche */}
-                  <AnimatePresence>
-                    {isOpen && results.length > 0 && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute top-full mt-3 w-full z-50"
-                      >
-                        <Card className="p-2 max-h-[400px] overflow-y-auto shadow-2xl border-2">
-                          {results.map((result, index) => {
-                            const Icon = getIcon(result.item.type);
-                            const isSelected = index === selectedIndex;
-
-                            return (
-                              <button
-                                key={result.item.id}
-                                onClick={() => handleSelectResult(result.item)}
-                                onMouseEnter={() => setSelectedIndex(index)}
-                                className={`w-full text-left p-3 rounded-lg transition-colors ${isSelected ? 'bg-accent' : 'hover:bg-accent/50'
-                                  }`}
-                              >
-                                <div className="flex items-start gap-3">
-                                  <div className="w-9 h-9 rounded-lg bg-primary/10 flex items-center justify-center shrink-0 mt-1">
-                                    <Icon className="w-5 h-5 text-primary" />
-                                  </div>
-                                  <div className="flex-1 min-w-0">
-                                    <div className="flex items-center gap-2 mb-1">
-                                      <h4 className="font-medium text-sm truncate">
-                                        {result.item.title}
-                                      </h4>
-                                      <span className="text-xs text-muted-foreground shrink-0 px-2 py-0.5 rounded-md bg-muted">
-                                        {result.item.category}
-                                      </span>
-                                    </div>
-                                    <p className="text-sm text-muted-foreground line-clamp-2">
-                                      {result.item.description}
-                                    </p>
-                                  </div>
-                                </div>
-                              </button>
-                            );
-                          })}
-                        </Card>
-                      </motion.div>
-                    )}
-
-                    {isOpen && searchQuery.length >= 2 && results.length === 0 && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        transition={{ duration: 0.15 }}
-                        className="absolute top-full mt-3 w-full z-50"
-                      >
-                        <Card className="p-6 text-center shadow-2xl border-2">
-                          <p className="text-muted-foreground text-sm">
-                            Aucun résultat pour "<span className="font-medium">{searchQuery}</span>"
-                          </p>
-                          <p className="text-xs text-muted-foreground mt-2">
-                            Essayez avec d'autres mots-clés ou{" "}
-                            <a
-                              href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="text-primary hover:underline"
-                            >
-                              posez votre question à l'assistant IA
-                            </a>
-                          </p>
-                        </Card>
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
                 </div>
               </motion.form>
 
@@ -385,16 +217,16 @@ const Home = () => {
               >
                 <div className="flex items-center gap-3 text-sm text-muted-foreground">
                   <span>En partenariat avec</span>
-                  <img
-                    src={logoDA}
-                    alt="Diversité Alternative"
+                  <img 
+                    src={logoDA} 
+                    alt="Diversité Alternative" 
                     className="h-8 object-contain"
                   />
                 </div>
                 <Button variant="outline" size="default" asChild className="rounded-full">
-                  <a
-                    href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu"
-                    target="_blank"
+                  <a 
+                    href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu" 
+                    target="_blank" 
                     rel="noopener noreferrer"
                   >
                     <MessageCircle className="w-4 h-4 mr-2" />
@@ -414,9 +246,9 @@ const Home = () => {
               <div className="relative">
                 {/* Decorative elements */}
                 <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-3xl blur-2xl opacity-60" />
-                <img
-                  src={heroIllustration}
-                  alt="Étudiants en France"
+                <img 
+                  src={heroIllustration} 
+                  alt="Étudiants en France" 
                   className="relative rounded-2xl shadow-2xl max-w-md w-full object-cover"
                 />
                 {/* Floating badge */}
@@ -442,10 +274,10 @@ const Home = () => {
         <div className="container">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {stats.map((stat, index) => (
-              <StatCard
-                key={stat.label}
-                {...stat}
-                delay={index * 0.1}
+              <StatCard 
+                key={stat.label} 
+                {...stat} 
+                delay={index * 0.1} 
               />
             ))}
           </div>
@@ -460,13 +292,13 @@ const Home = () => {
             title="Tous nos guides pratiques"
             description="Des guides détaillés pour chaque étape de votre installation en France."
           />
-
+          
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
             {features.map((feature, index) => (
-              <FeatureCard
-                key={feature.title}
-                {...feature}
-                delay={index * 0.1}
+              <FeatureCard 
+                key={feature.title} 
+                {...feature} 
+                delay={index * 0.1} 
               />
             ))}
           </div>
@@ -490,13 +322,13 @@ const Home = () => {
             title="Ils nous font confiance"
             description="Découvrez ce que les étudiants disent du Guide du Bleu."
           />
-
+          
           <div className="grid md:grid-cols-3 gap-6 mt-16">
             {testimonials.map((testimonial, index) => (
-              <TestimonialCard
-                key={testimonial.author}
-                {...testimonial}
-                delay={index * 0.1}
+              <TestimonialCard 
+                key={testimonial.author} 
+                {...testimonial} 
+                delay={index * 0.1} 
               />
             ))}
           </div>
@@ -519,8 +351,8 @@ const Home = () => {
               Rejoignez des milliers d'étudiants qui ont réussi leur installation en France grâce au Guide du Bleu.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                variant="hero-outline"
+              <Button 
+                variant="hero-outline" 
                 size="xl"
                 className="bg-primary-foreground/10 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
                 asChild
@@ -529,9 +361,9 @@ const Home = () => {
                   Explorer les guides
                 </Link>
               </Button>
-              <Button
-                variant="secondary"
-                size="xl"
+              <Button 
+                variant="secondary" 
+                size="xl" 
                 asChild
               >
                 <Link to="/contact">

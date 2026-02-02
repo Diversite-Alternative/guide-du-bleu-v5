@@ -71,9 +71,9 @@ export const Header = () => {
 
         {/* Search & CTA */}
         <div className="hidden lg:flex items-center gap-3">
-          <div className="w-64">
+          {/* <div className="w-64">
             <SearchBar />
-          </div>
+          </div> */}
           <Button variant="hero" size="default" asChild>
             <a href="https://chatgpt.com/g/g-auIrE8E6l-assistant-guide-du-bleu" target="_blank" rel="noopener noreferrer">
               Discuter avec GDB
